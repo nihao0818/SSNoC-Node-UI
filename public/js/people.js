@@ -147,7 +147,7 @@ function generateDate(){
     var minute = d.getMinutes();
     var hour = d.getHours();
     var date = d.getDate();
-    var month = d.getMonth();
+    var month = d.getMonth()+1;
     var year = d.getFullYear();
     return year + '-' + (month < 10 ? '0' + month : month) + '-' + (date < 10 ? '0' + date : date) + ' ' + (hour < 10 ? '0' + hour : hour) + ':' + (minute < 10 ? '0' + minute : minute);
 }
