@@ -11,7 +11,11 @@ module.exports = function(app, _, io, participants, passport) {
   app.get("/welcome", isLoggedIn, user_controller.getWelcome);
 
   app.get("/user", isLoggedIn, user_controller.getUser);
+
+  app.post("/status/:name", user_controller.updateStatus);
+
   app.get('/signup', user_controller.getSignup);
+
   app.get("/logout", isLoggedIn, user_controller.getLogout);
   app.post("/login", passport.authenticate('local-login', {
     successRedirect : '/people',
@@ -33,7 +37,7 @@ function refreshAllUsers(participants, callback) {
   participants.all = [];
   User.getAllUsers(function(err, users) {
     users.forEach(function(user) {
-      participants.all.push({'userName' : user.local.name});
+      participants.all.push({'userName' : user.local.name, 'userStatus' : user.local.status});
     });
     callback();
   });

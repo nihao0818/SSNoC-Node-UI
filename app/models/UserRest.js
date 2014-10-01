@@ -2,10 +2,12 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var rest_api = require('../../config/rest_api');
 
-function User(user_name, password){
+function User(user_name, password, status, statusDate){
   this.local = {
     name : user_name,
-    password : password
+    password : password,
+    status : status,
+    statusDate: statusDate
   };
 }
 
@@ -24,6 +26,18 @@ User.prototype.isValidPassword = function(password, callback) {
   });
 };
 
+User.updateStatus = function(user_name, user_status, createdDate) {
+  request.post({url:rest_api.update_user_status + user_name, body: {statusCode:user_status, createdDate:createdDate}, json:true }, function(err, res, body) {
+      if (err || res.statusCode !== 200){
+        console.log("return unsuccessfully!");
+        console.log(res.statusCode);
+        console.log(rest_api.update_user_status + user_name);
+      }
+        console.log("return successfully");
+        return;
+  });
+};
+
 User.getUser = function(user_name, callback) {
   request(rest_api.get_user + user_name, {json:true}, function(err, res, body) {
     if (err){
@@ -31,7 +45,7 @@ User.getUser = function(user_name, callback) {
       return;
     }
     if (res.statusCode === 200) {
-      var user = new User(body.userName, body.password);
+      var user = new User(body.userName, body.password, body.statusCode, body.statusDate);
       callback(null, user);
       return;
     }
@@ -50,7 +64,7 @@ User.getAllUsers = function(callback) {
     }
     if (res.statusCode === 200) {
       var users = body.map(function(item, idx, arr){
-        return new User(item.userName, item.password);
+        return new User(item.userName, item.password, item.statusCode, item.statusDate);
       });
 
       users.sort(function(a,b) {
@@ -84,7 +98,7 @@ User.saveNewUser = function(user_name, password, callback) {
       callback(res.body, null);
       return;
     }
-    var new_user = new User(body.userName, password, undefined);
+    var new_user = new User(body.userName, password, undefined, undefined);
     callback(null, new_user);
     return;
   });
