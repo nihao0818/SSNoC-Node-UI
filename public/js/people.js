@@ -36,7 +36,7 @@ function init() {
       var name = keys[i];
       var img_ele = '<img src="/img/photo4.png" height=40/>';
       var photo_ele = '<div class="col-xs-3 col-sm-2 col-md-1 col-lg-1"><img src="/img/green-dot.png" height=10/><br/>'+img_ele + '</div>';
-      var name_ele = '<div class="col-xs-4 col-sm-5 col-md-6 col-lg-6"><strong>' + name + '</strong></div>';
+      var name_ele = '<div class="col-xs-8 col-sm-9 col-md-10 col-lg-10"><strong>' + name + '</strong></div>';
       var dropdown_symbol = map[name].sId === sessionId ? '':'<i class="glyphicon glyphicon-chevron-down text-muted"></i>';
       var dropdown_ele = '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".' + name + '">' + dropdown_symbol + '</div>';
       var status_ele = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 "><button class="btn ' + map_status_color[map[name].status] + '">' + map[name].status + '</button></div>';
@@ -57,7 +57,7 @@ function init() {
       if (map[userObj.userName] == undefined) {
         var img_ele = '<img class="img-circle" src="/img/photo4.png" height=40/>';
         var photo_ele = '<div class="offline col-xs-3 col-sm-2 col-md-1 col-lg-1"><img src="/img/grey-dot.png" height=10/><br/>'+img_ele + '</div>';
-        var name_ele = '<div class="offline col-xs-4 col-sm-5 col-md-6 col-lg-6"><strong>' + userObj.userName + '</strong><br/></div>';
+        var name_ele = '<div class="offline col-xs-8 col-sm-9 col-md-10 col-lg-10"><strong>' + userObj.userName + '</strong><br/></div>';
         var dropdown_ele = '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".' + userObj.userName + '"><i class="glyphicon glyphicon-chevron-down text-muted"></i></div>';
         var status_ele = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 "><button class="btn ' + map_status_color[userObj.userStatus] + '">' + userObj.userStatus + '</button></div>';
         var statusDate_ele = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">' + userObj.statusDate + '</div>';
