@@ -17,6 +17,13 @@ function validateUserNameAndPassword() {
   }
   
 
+ if($('#userName').val().trim().length<3) {
+    $('#alert').text('Please provide a username with atleast 3 characters');
+    $('#alert').show();
+    $('#passport_alert').remove();
+    return false;
+  }
+
   re = /^\w+$/g;
   if(!re.test($('#userName').val().trim())) {
 	    $('#alert').text('Please do not include speccial characteristics');
@@ -42,8 +49,8 @@ function validateUserNameAndPassword() {
     return false;
   }
   
-  if( $('#passwd').val().trim().length <5 ) {
-	    $('#alert').text("Please enter password more than 4 characters");
+  if( $('#passwd').val().trim().length <4 ) {
+	    $('#alert').text("Please enter password atleast 4 characters");
 	    $('#alert').show();
 	    $('#passport_alert').remove();
 	    return false;
