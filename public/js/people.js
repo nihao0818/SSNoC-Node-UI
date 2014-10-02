@@ -39,11 +39,12 @@ function init() {
       var name_ele = '<div class="col-xs-4 col-sm-5 col-md-6 col-lg-6"><strong>' + name + '</strong></div>';
       var dropdown_symbol = map[name].sId === sessionId ? '':'<i class="glyphicon glyphicon-chevron-down text-muted"></i>';
       var dropdown_ele = '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".' + name + '">' + dropdown_symbol + '</div>';
-      var status_ele = '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 "><button class="btn ' + map_status_color[map[name].status] + '">' + map[name].status + '</button></div>';
-      var statusDate_ele = '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">' + map[name].statusDate + '</div>';
+      var status_ele = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 "><button class="btn ' + map_status_color[map[name].status] + '">' + map[name].status + '</button></div>';
+      var statusDate_ele = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">' + map[name].statusDate + '</div>';
 
 
-      var info_ele = '<div class="row user-row search_item">' + photo_ele + name_ele + status_ele + statusDate_ele + dropdown_ele + '</div>';
+      var info_ele = '<div class="row user-row search_item">' + photo_ele + name_ele + dropdown_ele + '</div>' 
+        + '<div class="row">' + status_ele + '</div>' + '<div class = "row">' + statusDate_ele + '</div>';
       var detail_ele = '<div class="row user-info ' + name + '"><a class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Wanna do something?</a><hr/></div></div>';
       if (map[name].sId === sessionId || name === my_name) {
       } else {
@@ -58,10 +59,11 @@ function init() {
         var photo_ele = '<div class="offline col-xs-3 col-sm-2 col-md-1 col-lg-1"><img src="/img/grey-dot.png" height=10/><br/>'+img_ele + '</div>';
         var name_ele = '<div class="offline col-xs-4 col-sm-5 col-md-6 col-lg-6"><strong>' + userObj.userName + '</strong><br/></div>';
         var dropdown_ele = '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".' + userObj.userName + '"><i class="glyphicon glyphicon-chevron-down text-muted"></i></div>';
-        var status_ele = '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 "><button class="btn ' + map_status_color[userObj.userStatus] + '">' + userObj.userStatus + '</button></div>';
-        var statusDate_ele = '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">' + userObj.statusDate + '</div>';
+        var status_ele = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 "><button class="btn ' + map_status_color[userObj.userStatus] + '">' + userObj.userStatus + '</button></div>';
+        var statusDate_ele = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">' + userObj.statusDate + '</div>';
 
-        var info_ele = '<div class="row user-row search_item">' + photo_ele + name_ele + status_ele + statusDate_ele + dropdown_ele + '</div>';
+        var info_ele = '<div class="row user-row search_item">' + photo_ele + name_ele + dropdown_ele + '</div>' 
+        + '<div class="row">' + status_ele + '</div>' + '<div class = "row">' + statusDate_ele + '</div>';
         var detail_ele = '<div class="row user-info ' + userObj.userName + '"><a class="btn btn-info col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">Wanna do something?</a><hr/></div></div>';
         
         $('#participants_online').append(info_ele);
@@ -101,15 +103,11 @@ function updateStatus(status, name, statusDate){
 
 /*render user's status*/
 function renderStatus(){
-  var status_ele = '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 dropdown">'
-                  +'<button class="btn btn-default dropdown-toggle " type="button" id="status" data-toggle="dropdown">'
+  var status_ele = '<div class="row"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dropdown">'
+                  +'<button class="btn btn-default dropdown-toggle " type="button" id="my_status" data-toggle="dropdown">'
                      + my_status
                      +' | <span class="caret"></span>'
                   +'</button>'
-                  /*                  +'<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">'
-                    +'<span class="caret"></span>'
-                    +'<span class="sr-only">Toggle Dropdown</span>'
-                  +'</button>'*/
                    +'<ul class="dropdown-menu" role="menu" aria-labelledby="status">'
                      +'<li role="presentation"><a class="statusList" role="menuitem" tabindex="-1" href="#">OK</a></li>'
                      +'<li role="presentation"><a class="statusList" role="menuitem" tabindex="-1" href="#">HELP</a></li>'
@@ -117,24 +115,24 @@ function renderStatus(){
                      +'<li role="presentation" class="divider"></li>'
                      +'<li role="presentation"><a class="statusList" role="menuitem" tabindex="-1" href="#">UNDEFINED</a></li>'
                    +'</ul>'
-                 +'</div>';
+                 +'</div></div>';
 
-  $("#myself").find(".row").append(status_ele);
+  $("#myself").append(status_ele);
 
-  var statusDate_ele = '<div id="my_statusDate" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">' + my_statusDate + '</div>';
+  var statusDate_ele = '<div class="row"><div id="my_statusDate" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">' + my_statusDate + '</div></div>';
 
-  $("#myself").find(".row").append(statusDate_ele);
+  $("#myself").append(statusDate_ele);
 
 
-  $("#status").addClass(map_status_color[my_status]);
+  $("#my_status").addClass(map_status_color[my_status]);
 
 
 /*change status*/
   $("a.statusList").click(function() {
     var chosen_status = $(this).html();
-    $("#status").removeClass(map_status_color[my_status]);
-    $("#status").addClass(map_status_color[chosen_status]);
-    $("#status").html(chosen_status +' | <span class="caret"></span>');
+    $("#my_status").removeClass(map_status_color[my_status]);
+    $("#my_status").addClass(map_status_color[chosen_status]);
+    $("#my_status").html(chosen_status +' | <span class="caret"></span>');
     my_status = chosen_status;
     my_statusDate = generateDate();
     $("#my_statusDate").html(my_statusDate);
